@@ -34,7 +34,7 @@ class SuperQFCModel0(tq.QuantumModule):
         # if getattr(self.arch, 'down_sample_kernel_size', None) is not None:
         #     x = F.avg_pool2d(x, self.arch['down_sample_kernel_size'])
 
-        x = x.view(bsz, -1)
+        # x = x.view(bsz, -1)
 
         if use_qiskit:
             x = self.qiskit_processor.process_parameterized(

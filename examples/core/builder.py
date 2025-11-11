@@ -67,12 +67,16 @@ class MyDataset(torch.utils.data.Dataset):
 def my_dataset() -> Dataset:
     import pandas as pd
     import numpy as np
-    train = pd.read_csv(f'examples/data/linear/linearly_separable_16d_train.csv', header=None)
-    test = pd.read_csv(f'examples/data/linear/linearly_separable_16d_test.csv', header=None)
-    train_data = reshape_to_target(torch.from_numpy(train.iloc[:, :-1].values.astype(np.float32)).unsqueeze(1))
-    train_labels = torch.from_numpy(train.iloc[:, -1].values.astype(np.int64))
-    test_data = reshape_to_target(torch.from_numpy(test.iloc[:, :-1].values.astype(np.float32)).unsqueeze(1))
-    test_labels = torch.from_numpy(test.iloc[:, -1].values.astype(np.int64))
+    # train = pd.read_csv(f'examples/data/linear/linearly_separable_16d_train.csv', header=None)
+    # test = pd.read_csv(f'examples/data/linear/linearly_separable_16d_test.csv', header=None)
+    train_raw = pd.read_csv(f'examples/data/hidden_manifold/QML_Hidden_48d_train.csv', header=None)
+    test_raw = pd.read_csv(f'examples/data/hidden_manifold/QML_Hidden_48d_test.csv', header=None)
+    # train_data = reshape_to_target(torch.from_numpy(train.iloc[:, :-1].values.astype(np.float32)).unsqueeze(1))
+    train_data = torch.tensor(train_raw.iloc[:, :-1].values, dtype=torch.float32)
+    train_labels = torch.from_numpy(train_raw.iloc[:, -1].values.astype(np.int64))
+    # test_data = reshape_to_target(torch.from_numpy(test.iloc[:, :-1].values.astype(np.float32)).unsqueeze(1))
+    test_data = torch.tensor(test_raw.iloc[:, :-1].values, dtype=torch.float32)
+    test_labels = torch.from_numpy(test_raw.iloc[:, -1].values.astype(np.int64))
     train_labels = torch.where(train_labels == -1, torch.tensor(0), train_labels)
     test_labels = torch.where(test_labels == -1, torch.tensor(0), test_labels)
     train_dateset = MyDataset(train_data, train_labels)
