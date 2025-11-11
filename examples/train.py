@@ -43,6 +43,12 @@ def main() -> None:
     configs.load(args.config, recursive=True)
     configs.update(opts)
 
+
+    # Change the configs to be for Hidden Manifold – 16d with 12 qubits.
+    configs['model']['arch']['n_wires'] = 12
+    configs['model']['arch']['encoder_op_list_name'] = '12x4_ryzxy'
+
+
     if configs.debug.pdb or args.pdb:
         pdb.set_trace()
 
