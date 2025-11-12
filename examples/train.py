@@ -4,6 +4,8 @@ import sys
 import pdb
 import numpy as np
 import torch
+torch.cuda.empty_cache()
+
 import torch.backends.cudnn
 import torch.cuda
 import torch.nn
@@ -44,9 +46,10 @@ def main() -> None:
     configs.update(opts)
 
 
-    # Change the configs to be for Hidden Manifold – 48d with 12 qubits.
-    configs['model']['arch']['n_wires'] = 12
-    configs['model']['arch']['encoder_op_list_name'] = '12x4_ryzxy'
+    # Change the configs to be for Hidden Manifold – 80d with 20 qubits.
+    configs['model']['arch']['n_wires'] = 20
+    configs['model']['arch']['encoder_op_list_name'] = '20x4_ryzxy'
+    configs['run']['bsz'] = 32      # For circuits with 16 qubits or more, use batch size = 32 to avoid GPU memory overflow.
 
 
     if configs.debug.pdb or args.pdb:
