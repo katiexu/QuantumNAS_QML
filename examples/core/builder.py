@@ -68,9 +68,9 @@ def my_dataset() -> Dataset:
     import pandas as pd
     import numpy as np
     # Load raw data
-    train_raw = pd.read_csv(f'examples/data/hidden_manifold/QML_Hidden_48d_train 1.csv', header=None)
-    val_raw = pd.read_csv(f'examples/data/hidden_manifold/QML_Hidden_48d_val.csv', header=None)
-    test_raw = pd.read_csv(f'examples/data/hidden_manifold/QML_Hidden_48d_test 1.csv', header=None)
+    train_raw = pd.read_csv(f'examples/data/hidden_manifold/QML_Hidden_64d_train.csv', header=None)
+    val_raw = pd.read_csv(f'examples/data/hidden_manifold/QML_Hidden_64d_val.csv', header=None)
+    test_raw = pd.read_csv(f'examples/data/hidden_manifold/QML_Hidden_64d_test.csv', header=None)
 
     train_data = torch.tensor(train_raw.iloc[:, :-1].values, dtype=torch.float32)
     train_labels = torch.from_numpy(train_raw.iloc[:, -1].values.astype(np.int64))
