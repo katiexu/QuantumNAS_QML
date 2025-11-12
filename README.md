@@ -1,5 +1,5 @@
 # QuantumNAS QML Hidden Manifold
-## Use QuantumNAS framework to run PennyLane QML Hidden Manifold 48d dataset.
+## Use QuantumNAS framework to run PennyLane QML Hidden Manifold 64d dataset.
 
 Run **1_train_supercircuit.sh**: 1st step, train the supercircuit.
 
