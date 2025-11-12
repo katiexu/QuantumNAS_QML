@@ -44,7 +44,7 @@ def main() -> None:
     configs.update(opts)
 
 
-    # Change the configs to be for Hidden Manifold – 16d with 12 qubits.
+    # Change the configs to be for Hidden Manifold – 48d with 12 qubits.
     configs['model']['arch']['n_wires'] = 12
     configs['model']['arch']['encoder_op_list_name'] = '12x4_ryzxy'
 
