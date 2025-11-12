@@ -184,12 +184,13 @@ def main() -> None:
 
 
     configs['qiskit']['use_qiskit'] = False
-    configs['run']['device'] = 'cpu'
+    # configs['run']['device'] = 'cpu'
 
-    # Change the configs to be for Hidden Manifold – 16d with 12 qubits.
-    configs['model']['arch']['n_wires'] = 12
-    configs['model']['arch']['encoder_op_list_name'] = '12x4_ryzxy'
-    configs['ckpt']['name'] = 'checkpoints/step-400.pt'
+    # Change the configs to be for Hidden Manifold – 64d with 16 qubits.
+    configs['model']['arch']['n_wires'] = 16
+    configs['model']['arch']['encoder_op_list_name'] = '16x4_ryzxy'
+    configs['ckpt']['name'] = 'checkpoints/step-1800.pt'
+    configs['run']['bsz'] = 32      # For circuits with 16 qubits or more, use batch size = 32 to avoid GPU memory overflow.
 
 
     if configs.debug.pdb or args.pdb:
