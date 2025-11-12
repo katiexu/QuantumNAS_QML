@@ -185,11 +185,11 @@ def main() -> None:
 
     configs['qiskit']['use_qiskit'] = False
     configs['run']['device'] = 'cpu'
-    configs['ckpt']['name'] = 'checkpoints/step-200.pt'    # find weights for linear separable dataset
 
     # Change the configs to be for Hidden Manifold – 16d with 12 qubits.
     configs['model']['arch']['n_wires'] = 12
     configs['model']['arch']['encoder_op_list_name'] = '12x4_ryzxy'
+    configs['ckpt']['name'] = 'checkpoints/step-400.pt'
 
 
     if configs.debug.pdb or args.pdb:
