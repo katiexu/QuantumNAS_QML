@@ -186,7 +186,7 @@ def main() -> None:
     configs['qiskit']['use_qiskit'] = False
     configs['run']['device'] = 'cpu'
 
-    # Change the configs to be for Hidden Manifold – 16d with 12 qubits.
+    # Change the configs to be for Hidden Manifold – 48d with 12 qubits.
     configs['model']['arch']['n_wires'] = 12
     configs['model']['arch']['encoder_op_list_name'] = '12x4_ryzxy'
     configs['ckpt']['name'] = 'checkpoints/step-400.pt'
