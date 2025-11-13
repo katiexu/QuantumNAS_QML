@@ -1,3 +1,9 @@
+# Modify the configs for QML datasets with different dimensions and different numbers of qubits.
+num_qubits = 12
+data_path = 'examples/data/Linear/QML_Linear_48d'
+batch_sz = 32
+
+
 import argparse
 import os
 import sys
@@ -44,9 +50,10 @@ def main() -> None:
     configs.update(opts)
 
 
-    # Change the configs to be for Hidden Manifold – 48d with 12 qubits.
-    configs['model']['arch']['n_wires'] = 12
-    configs['model']['arch']['encoder_op_list_name'] = '12x4_ryzxy'
+    # Modify the configs for QML datasets with different dimensions and different numbers of qubits.
+    configs['model']['arch']['n_wires'] = num_qubits
+    configs['path'] = data_path
+    configs['run']['bsz'] = batch_sz
 
 
     if configs.debug.pdb or args.pdb:
@@ -89,7 +96,7 @@ def main() -> None:
                 f'{print_conf}')
 
     # dataset = builder.make_dataset()
-    dataset = builder.my_dataset()
+    dataset = builder.my_dataset(configs)
 
     dataflow = dict()
 

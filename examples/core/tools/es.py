@@ -264,6 +264,12 @@ class EvolutionEngine(object):
 
     def satisfy_constraints(self, gene):
         # Different logical qubits map to different physical qubits
+
+        # For 16-qubit or bigger circuits, set self.legalize_layout = True
+        # (if the layout itself does not affect results),
+        # otherwise mapping is unlikely to succeed.
+        self.legalize_layout = True
+
         if self.legalize_layout:
             # find the nearest legal layout, replace the repeated qubit with
             # unused ones

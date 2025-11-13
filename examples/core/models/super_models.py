@@ -4,8 +4,35 @@ import torchquantum.functional as tqf
 import torch.nn.functional as F
 
 from torchpack.utils.logging import logger
-from torchquantum.encoding import encoder_op_list_name_dict
+# from torchquantum.encoding import encoder_op_list_name_dict
 from torchquantum.super_layers import super_layer_name_dict
+
+
+def generate_ryzxy(num_wires):
+    ops = []
+    input_idx = 0
+
+    # 第一层: ry
+    for w in range(num_wires):
+        ops.append({'input_idx': [input_idx], 'func': 'ry', 'wires': [w]})
+        input_idx += 1
+
+    # 第二层: rz
+    for w in range(num_wires):
+        ops.append({'input_idx': [input_idx], 'func': 'rz', 'wires': [w]})
+        input_idx += 1
+
+    # 第三层: rx
+    for w in range(num_wires):
+        ops.append({'input_idx': [input_idx], 'func': 'rx', 'wires': [w]})
+        input_idx += 1
+
+    # 第四层: ry
+    for w in range(num_wires):
+        ops.append({'input_idx': [input_idx], 'func': 'ry', 'wires': [w]})
+        input_idx += 1
+
+    return ops
 
 
 class SuperQFCModel0(tq.QuantumModule):
@@ -14,9 +41,10 @@ class SuperQFCModel0(tq.QuantumModule):
         self.arch = arch
         self.n_wires = arch['n_wires']
         self.q_device = tq.QuantumDevice(n_wires=self.n_wires)
-        self.encoder = tq.GeneralEncoder(
-            encoder_op_list_name_dict[arch['encoder_op_list_name']]
-        )
+        # self.encoder = tq.GeneralEncoder(
+        #     encoder_op_list_name_dict[arch['encoder_op_list_name']]
+        # )
+        self.encoder = tq.GeneralEncoder(generate_ryzxy(self.arch['n_wires']))
         self.q_layer = super_layer_name_dict[arch['q_layer_name']](arch)
         self.measure = tq.MeasureAll(tq.PauliZ)
         self.sample_arch = None

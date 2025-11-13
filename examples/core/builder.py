@@ -64,14 +64,15 @@ class MyDataset(torch.utils.data.Dataset):
         img = self.data[idx]
         digit=self.labels[idx]
         return {"image": img, "digit": digit}
-def my_dataset() -> Dataset:
+def my_dataset(configs) -> Dataset:
     import pandas as pd
     import numpy as np
     # Load raw data
-    train_raw = pd.read_csv(f'examples/data/hidden_manifold/QML_Hidden_48d_train 1.csv', header=None)
-    val_raw = pd.read_csv(f'examples/data/hidden_manifold/QML_Hidden_48d_val.csv', header=None)
-    test_raw = pd.read_csv(f'examples/data/hidden_manifold/QML_Hidden_48d_test 1.csv', header=None)
+    train_raw = pd.read_csv(f'{configs.path}_train.csv',header=None)
+    val_raw =pd.read_csv(f'{configs.path}_val.csv',header=None)
+    test_raw =pd.read_csv(f'{configs.path}_test.csv',header=None)
 
+    # Generate data and labels
     train_data = torch.tensor(train_raw.iloc[:, :-1].values, dtype=torch.float32)
     train_labels = torch.from_numpy(train_raw.iloc[:, -1].values.astype(np.int64))
     val_data = torch.tensor(val_raw.iloc[:, :-1].values, dtype=torch.float32)

@@ -1,3 +1,10 @@
+# Modify the configs for QML datasets with different dimensions and different numbers of qubits.
+num_qubits = 12
+data_path = 'examples/data/Linear/QML_Linear_48d'
+saved_checkpoint = 'checkpoints/step-400.pt'
+batch_sz = 32
+
+
 import argparse
 import os
 import pdb
@@ -184,12 +191,13 @@ def main() -> None:
 
 
     configs['qiskit']['use_qiskit'] = False
-    configs['run']['device'] = 'cpu'
+    configs['ckpt']['name'] = saved_checkpoint
 
-    # Change the configs to be for Hidden Manifold – 48d with 12 qubits.
-    configs['model']['arch']['n_wires'] = 12
-    configs['model']['arch']['encoder_op_list_name'] = '12x4_ryzxy'
-    configs['ckpt']['name'] = 'checkpoints/step-400.pt'
+
+    # Modify the configs for QML datasets with different dimensions and different numbers of qubits.
+    configs['model']['arch']['n_wires'] = num_qubits
+    configs['path'] = data_path
+    configs['run']['bsz'] = batch_sz
 
 
     if configs.debug.pdb or args.pdb:
@@ -227,7 +235,7 @@ def main() -> None:
                 configs.qiskit.backend_name).configuration().max_experiments
 
     # dataset = builder.make_dataset()
-    dataset = builder.my_dataset()
+    dataset = builder.my_dataset(configs)
     sampler = torch.utils.data.SequentialSampler(dataset[
                                                      configs.dataset.split])
     dataflow = torch.utils.data.DataLoader(
