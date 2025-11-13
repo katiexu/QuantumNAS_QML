@@ -1,7 +1,7 @@
 # Modify the configs for QML datasets with different dimensions and different numbers of qubits.
 num_qubits = 12
 data_path = 'examples/data/Linear/QML_Linear_48d'
-saved_checkpoint = 'checkpoints/step-400.pt'
+saved_checkpoint = 'checkpoints/step-1800.pt'
 batch_sz = 32
 
 
